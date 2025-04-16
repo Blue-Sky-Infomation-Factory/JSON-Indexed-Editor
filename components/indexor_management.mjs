@@ -1,5 +1,5 @@
 import { config, indexorStorage } from "../data.mjs";
-import { parse, parseAndGetNodes, EVENT_LISTENERS } from "/javascript/module/ArrayHTML.mjs";
+import { parse, parseAndGetNodes, EVENT_LISTENERS } from "/javascript/module/array_HTML.mjs";
 import { changeTab, createTab, getTab } from "../ui.mjs";
 import MiniWindow from "/javascript/module/MiniWindow.mjs";
 import Notifier from "/javascript/module/Notifier.mjs";

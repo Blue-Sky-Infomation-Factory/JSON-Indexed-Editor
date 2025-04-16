@@ -1,5 +1,5 @@
 import { menus, renderMenu } from "./menu.mjs";
-import { EVENT_LISTENERS, parse, parseAndGetNodes } from "/javascript/module/ArrayHTML.mjs";
+import { EVENT_LISTENERS, parse, parseAndGetNodes } from "/javascript/module/array_HTML.mjs";
 import MiniWindow from "/javascript/module/MiniWindow.mjs";
 
 const serviceWorker = navigator.serviceWorker;

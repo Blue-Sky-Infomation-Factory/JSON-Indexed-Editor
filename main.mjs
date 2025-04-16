@@ -1,4 +1,4 @@
-import { read, readableTypes, open } from "/javascript/module/FileIO.mjs";
+import { read, readableTypes, open } from "/javascript/module/file_io.mjs";
 import { MiniWindow } from "/javascript/module/MiniWindow.mjs";
 import { getTab } from "./ui.mjs";
 import { renderMenu, menus } from "./menu.mjs";

@@ -1,7 +1,7 @@
 import { updateAllIndexor } from "./components/indexed_edit.mjs";
 import { endWork } from "./main.mjs";
-import { parse as parseAH, parseAndGetNodes } from "/javascript/module/ArrayHTML.mjs";
-import { save } from "/javascript/module/FileIO.mjs";
+import { parse as parseAH, parseAndGetNodes } from "/javascript/module/array_HTML.mjs";
+import { save } from "/javascript/module/file_io.mjs";
 import MiniWindow from "/javascript/module/MiniWindow.mjs";
 const stringify = JSON.stringify, ROOT = Symbol("ROOT");
 //预览部分

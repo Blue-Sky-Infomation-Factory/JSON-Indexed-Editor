@@ -1,5 +1,5 @@
-import { EVENT_LISTENERS, parse } from "/javascript/module/ArrayHTML.mjs";
-import { showMenu, closeMenu } from "/javascript/module/ContextMenu.mjs";
+import { EVENT_LISTENERS, parse } from "/javascript/module/array_HTML.mjs";
+import { showMenu, closeMenu } from "../../javascript/module/context_menu.mjs";
 /** @type {{text: string, list: Parameters<showMenu>[0], sort: number}[]} */
 const menus = [], menuElement = document.getElementById("menu");
 var focusItem = null, expanded = false, keepFocus = false, keyboardMode = true;

@@ -1,5 +1,5 @@
 import CacheController from "../support.mjs"
-const cacheController = new CacheController(5); // version
+const cacheController = new CacheController(6); // version
 self.addEventListener("install", async event => {
     const installation = cacheController.install({
         own: [
@@ -26,14 +26,13 @@ self.addEventListener("install", async event => {
             "ui.mjs"
         ],
         requiredScripts: [
-            "ArrayHTML.mjs",
-            "BinaryOperate.mjs",
-            "ContextMenu.mjs",
-            "FileIO.mjs",
+            "array_HTML.mjs",
+            "binary_operate.mjs",
+            "context_menu.mjs",
+            "file_io.mjs",
             "IndexedDatabase.mjs",
             "MiniWindow.mjs",
-            "Notifier.mjs",
-            "PromiseWithResolvers.mjs"
+            "Notifier.mjs"
         ],
         shared: [
             "/css/BSIF_style.css"

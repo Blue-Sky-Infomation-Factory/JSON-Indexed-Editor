@@ -1,9 +1,9 @@
 import { Indexor } from "../indexor.mjs";
-import { parseAndGetNodes, EVENT_LISTENERS, parse as parseAH } from "/javascript/module/ArrayHTML.mjs";
+import { parseAndGetNodes, EVENT_LISTENERS, parse as parseAH } from "/javascript/module/array_HTML.mjs";
 import { createTab } from "../ui.mjs";
 import MiniWindow from "/javascript/module/MiniWindow.mjs";
 import { currentSetChangeNotifier, getCurrentSet, modifyCurrentSet } from "./indexor_management.mjs";
-import showMenu from "/javascript/module/ContextMenu.mjs";
+import showMenu from "../../../javascript/module/context_menu.mjs";
 const { stringify, parse } = JSON,
 	/** @ts-ignore @type {{indexorFrame: HTMLDivElement, index: HTMLInputElement}} */
 	{ indexorFrame, variableFrame } = parseAndGetNodes([

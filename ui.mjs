@@ -1,5 +1,5 @@
 import { uiData } from "./data.mjs";
-import { EVENT_LISTENERS, parseAndGetNodes } from "/javascript/module/ArrayHTML.mjs";
+import { EVENT_LISTENERS, parseAndGetNodes } from "/javascript/module/array_HTML.mjs";
 // 预览窗格宽度控制
 const ceil = Math.ceil,
 	previewFrame = document.getElementById("preview-frame"),
