@@ -1,9 +1,9 @@
 import { Indexor } from "../indexor.mjs";
 import { parseAndGetNodes, EVENT_LISTENERS, parse as parseAH } from "/javascript/module/array_HTML.mjs";
 import { createTab } from "../ui.mjs";
-import MiniWindow from "/javascript/module/MiniWindow.mjs";
+import OverlayWindow from "/component/overlay_window/OverlayWindow.mjs";
 import { currentSetChangeNotifier, getCurrentSet, modifyCurrentSet } from "./indexor_management.mjs";
-import showMenu from "../../../javascript/module/context_menu.mjs";
+import showMenu from "/component/context_menu/context_menu.mjs";
 const { stringify, parse } = JSON,
 	/** @ts-ignore @type {{indexorFrame: HTMLDivElement, index: HTMLInputElement}} */
 	{ indexorFrame, variableFrame } = parseAndGetNodes([
@@ -139,14 +139,14 @@ function newIndexor() {
 }
 async function removeIndexor(instance) {
 	const i = indexors.indexOf(instance);
-	if (i != -1 && await MiniWindow.confirm("确定要移除这个索引器吗？")) {
+	if (i != -1 && await OverlayWindow.confirm("确定要移除这个索引器吗？")) {
 		indexors.splice(i, 1);
 		instance.element.remove();
 		updateCurrentSet();
 	}
 }
 async function removeAllIndexor() {
-	if (indexors.length && await MiniWindow.confirm("确定要移除全部索引器吗？")) {
+	if (indexors.length && await OverlayWindow.confirm("确定要移除全部索引器吗？")) {
 		indexorFrame.innerHTML = "";
 		indexors = [];
 		updateCurrentSet();
@@ -209,13 +209,13 @@ class VaribaleItem {
 	}
 }
 async function newVariable() {
-	const name = await MiniWindow.prompt("请输入变量名称");
+	const name = await OverlayWindow.prompt("请输入变量名称");
 	if (!identifierRegexp.test(name)) {
-		MiniWindow.alert("名称不符合规则！名称只能包含字母、数字、下划线、横杠，且不能以数字开头。");
+		OverlayWindow.alert("名称不符合规则！名称只能包含字母、数字、下划线、横杠，且不能以数字开头。");
 		return;
 	}
 	if (variablesMapping.has(name)) {
-		MiniWindow.alert("已存在具有该名称的变量。");
+		OverlayWindow.alert("已存在具有该名称的变量。");
 		return;
 	}
 	const variable = new VaribaleItem(name);
@@ -228,7 +228,7 @@ async function newVariable() {
 /** @param {VaribaleItem} instance */
 async function removeVariable(instance) {
 	const i = variables.indexOf(instance), name = instance.name;
-	if (i != -1 && await MiniWindow.confirm(`确定要移除变量 ${name} 吗？`)) {
+	if (i != -1 && await OverlayWindow.confirm(`确定要移除变量 ${name} 吗？`)) {
 		if (currentActiveVariable == instance) currentActiveVariable = null;
 		variablesMapping.delete(name)
 		variables.splice(i, 1);
@@ -238,7 +238,7 @@ async function removeVariable(instance) {
 	}
 }
 async function removeAllVariable() {
-	if (variables.length && await MiniWindow.confirm("确定要移除全部变量吗？")) {
+	if (variables.length && await OverlayWindow.confirm("确定要移除全部变量吗？")) {
 		variableFrame.innerHTML = "";
 		currentActiveVariable = null;
 		variablesMapping = new Map();

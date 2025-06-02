@@ -2,7 +2,7 @@ import { updateAllIndexor } from "./components/indexed_edit.mjs";
 import { endWork } from "./main.mjs";
 import { parse as parseAH, parseAndGetNodes } from "/javascript/module/array_HTML.mjs";
 import { save } from "/javascript/module/file_io.mjs";
-import MiniWindow from "/javascript/module/MiniWindow.mjs";
+import OverlayWindow from "/component/overlay_window/OverlayWindow.mjs";
 const stringify = JSON.stringify, ROOT = Symbol("ROOT");
 //预览部分
 class TreeNode {
@@ -217,11 +217,11 @@ async function saveFile() {
 	if (pending || !(fileHandle && changed)) return;
 	pending = true;
 	if (await fileHandle.queryPermission(reqiredPermission) != "granted") {
-		const alertWin = new MiniWindow("您尚未许可本应用写入文件，请在提示框中授权。", "请求授权", { noManualClose: true }),
+		const alertWin = new OverlayWindow("您尚未许可本应用写入文件，请在提示框中授权。", "请求授权", { noManualClose: true }),
 			notGranted = await fileHandle.requestPermission(reqiredPermission) != "granted";
 		alertWin.close();
 		if (notGranted) {
-			new MiniWindow("未能保存文件，因为未能获得写入权限。", "保存失败");
+			new OverlayWindow("未能保存文件，因为未能获得写入权限。", "保存失败");
 			return pending = false;
 		}
 	}
@@ -232,7 +232,7 @@ async function saveFile() {
 		pending = changed = false;
 		return true;
 	} catch (e) {
-		new MiniWindow("发生了错误：\n" + e.message, "保存失败", { size: { width: "min-content" } });
+		new OverlayWindow("发生了错误：\n" + e.message, "保存失败", { size: { width: "min-content" } });
 		return pending = false;
 	}
 }
@@ -243,7 +243,7 @@ const saveAsParam = {
 async function saveAs() { save(stringify(data), saveAsParam) }
 async function closeFile() {
 	if (pending) return;
-	if (changed && await MiniWindow.confirm("文件已修改，在关闭文件前要先保存吗？", "文件未保存") && !await saveFile()) return;
+	if (changed && await OverlayWindow.confirm("文件已修改，在关闭文件前要先保存吗？", "文件未保存") && !await saveFile()) return;
 	data = tree = fileHandle = undefined;
 	changed = false;
 	preview.innerHTML = "";

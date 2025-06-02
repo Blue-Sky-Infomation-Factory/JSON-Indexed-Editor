@@ -1,6 +1,6 @@
 import { menus, renderMenu } from "./menu.mjs";
 import { EVENT_LISTENERS, parse, parseAndGetNodes } from "/javascript/module/array_HTML.mjs";
-import MiniWindow from "/javascript/module/MiniWindow.mjs";
+import OverlayWindow from "/component/overlay_window/OverlayWindow.mjs";
 
 const serviceWorker = navigator.serviceWorker;
 serviceWorker.startMessages
@@ -71,12 +71,12 @@ function cacheResource() {
 		// @ts-ignore
 		start.style.display = "block";
 	}
-	const miniWindow = new MiniWindow(documentFragment, "离线缓存", { containerClassName: "help-cache", size: { height: "8rem", width: "32rem" } });
-	miniWindow.addEventListener("closed", throwWindowClose.bind(null, windowCloseCall));
+	const overlayWindow = new OverlayWindow(documentFragment, "离线缓存", { containerClassName: "help-cache", size: { height: "8rem", width: "32rem" } });
+	overlayWindow.addEventListener("closed", throwWindowClose.bind(null, windowCloseCall));
 }
 
 function about() {
-	new MiniWindow(parse([
+	new OverlayWindow(parse([
 		["style", [
 			".help-about{display:grid;gap:1rem;justify-items:center;padding:0 2rem}",
 			"#help-about-title{font-size:2rem}"

@@ -1,7 +1,7 @@
 import { config, indexorStorage } from "../data.mjs";
 import { parse, parseAndGetNodes, EVENT_LISTENERS } from "/javascript/module/array_HTML.mjs";
 import { changeTab, createTab, getTab } from "../ui.mjs";
-import MiniWindow from "/javascript/module/MiniWindow.mjs";
+import OverlayWindow from "/component/overlay_window/OverlayWindow.mjs";
 import Notifier from "/javascript/module/Notifier.mjs";
 function buildSet(item) {
 	const name = item.name;
@@ -143,12 +143,12 @@ const {
 				["button", "保存方案", {
 					class: "default-color", [EVENT_LISTENERS]: [
 						["click", async () => {
-							const name = await MiniWindow.prompt("请输入方案名称：", "方案" + Date.now());
+							const name = await OverlayWindow.prompt("请输入方案名称：", "方案" + Date.now());
 							if (!name) {
-								MiniWindow.alert("方案名称不能为空！");
+								OverlayWindow.alert("方案名称不能为空！");
 								return;
 							}
-							if (Object.hasOwn(sets, name) && !await MiniWindow.confirm("已经存在此名称的方案，你想要覆盖吗？")) return;
+							if (Object.hasOwn(sets, name) && !await OverlayWindow.confirm("已经存在此名称的方案，你想要覆盖吗？")) return;
 							await indexorStorage.update({ name, ...currentSet });
 							await updateSetsList();
 							changeSetDetail(name);
@@ -158,7 +158,7 @@ const {
 				["button", "使用方案", {
 					class: "default-color", [EVENT_LISTENERS]: [
 						["click", async () => {
-							if (!await MiniWindow.confirm("确定要使用这一方案吗？未保存的当前使用方案将会丢失！")) return;
+							if (!await OverlayWindow.confirm("确定要使用这一方案吗？未保存的当前使用方案将会丢失！")) return;
 							modifyCurrentSet(sets[showingSetName].data);
 							changeSetDetail("");
 							currentSetChangeNotifier.trigger()
@@ -168,7 +168,7 @@ const {
 				["button", "删除方案", {
 					class: "default-color", [EVENT_LISTENERS]: [
 						["click", async () => {
-							if (!await MiniWindow.confirm("确定要删除这一方案吗？此操作不可撤销！")) return;
+							if (!await OverlayWindow.confirm("确定要删除这一方案吗？此操作不可撤销！")) return;
 							await indexorStorage.delete(showingSetName);
 							await updateSetsList();
 						}, { passive: true }]
@@ -177,14 +177,14 @@ const {
 				["button", "重命名", {
 					class: "default-color", [EVENT_LISTENERS]: [
 						["click", async () => {
-							const name = await MiniWindow.prompt("请输入方案名称：", showingSetName);
+							const name = await OverlayWindow.prompt("请输入方案名称：", showingSetName);
 							if (!name) {
-								MiniWindow.alert("方案名称不能为空！");
+								OverlayWindow.alert("方案名称不能为空！");
 								return;
 							}
 							if (showingSetName == name) return;
 							if (Object.hasOwn(sets, name)) {
-								MiniWindow.alert("已经存在此名称的方案，重命名失败！");
+								OverlayWindow.alert("已经存在此名称的方案，重命名失败！");
 								return
 							};
 							const set = sets[showingSetName].data;

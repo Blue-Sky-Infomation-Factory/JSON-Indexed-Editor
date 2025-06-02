@@ -1,5 +1,5 @@
 import { read, readableTypes, open } from "/javascript/module/file_io.mjs";
-import { MiniWindow } from "/javascript/module/MiniWindow.mjs";
+import OverlayWindow from "/component/overlay_window/OverlayWindow.mjs";
 import { getTab } from "./ui.mjs";
 import { renderMenu, menus } from "./menu.mjs";
 import { closeFile, load, saveAs, saveFile } from "./tree.mjs";
@@ -11,14 +11,14 @@ var working = false, pending = false;
 async function loadFile(fileHandle) {
 	if (pending || working) return;
 	pending = true;
-	const closeWaitWin = MiniWindow.wait("正在加载，请稍等……");
+	const closeWaitWin = OverlayWindow.wait("正在加载，请稍等……");
 	let data
 	try {
 		data = JSON.parse(await read(await fileHandle.getFile(), readableTypes.TEXT));
 		fileHandle.requestPermission({ mode: "readwrite" });
 	} catch (error) {
 		pending = false;
-		MiniWindow.alert("无法解读该文件，请选择正确的 JSON 文件。", "错误！");
+		OverlayWindow.alert("无法解读该文件，请选择正确的 JSON 文件。", "错误！");
 		closeWaitWin();
 		return;
 	}
@@ -30,7 +30,7 @@ async function loadFile(fileHandle) {
 function preventDefault(event) { event.preventDefault() }
 function startWork(data, fileHandle) {
 	if (working) {
-		MiniWindow.alert("此实例已经打开了文件，请启动一个新实例。");
+		OverlayWindow.alert("此实例已经打开了文件，请启动一个新实例。");
 		return;
 	}
 	working = true;
