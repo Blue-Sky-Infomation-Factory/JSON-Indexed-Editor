@@ -1,5 +1,5 @@
 import CacheController from "../support.mjs"
-const cacheController = new CacheController(6); // version
+const cacheController = new CacheController(7); // version
 self.addEventListener("install", async event => {
     const installation = cacheController.install({
         own: [
@@ -25,22 +25,33 @@ self.addEventListener("install", async event => {
             "tree.mjs",
             "ui.mjs"
         ],
-        requiredScripts: [
+        scriptModule: [
+            "fetch.mjs",
+            "Enum.mjs",
             "array_HTML.mjs",
             "binary_operate.mjs",
-            "context_menu.mjs",
             "file_io.mjs",
             "IndexedDatabase.mjs",
-            "MiniWindow.mjs",
             "Notifier.mjs"
         ],
-        shared: [
-            "/css/BSIF_style.css"
+        component: [
+            "utils.mjs",
+            "context_menu/context_menu.mjs",
+            "context_menu/context_menu.css",
+            "overlay_window/OverlayWindow.mjs",
+            "overlay_window/overlay_window.css"
+        ],
+        website: [
+            "css/BSIF_style.css"
         ]
     });
+    // @ts-ignore
     event.waitUntil(installation);
     await installation;
+    // @ts-ignore
     (await clients.matchAll({includeUncontrolled: true,type: "window"}))[0]?.postMessage("updated");
 });
+// @ts-ignore
 self.addEventListener("fetch", event => { event.respondWith(cacheController.respond(event.request)) });
+// @ts-ignore
 self.addEventListener("activate", async event => { event.waitUntil(cacheController.clean()) });
